@@ -1,0 +1,49 @@
+<!--
+  Generated template for the PavillonPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button (click)="dismiss();" ion-button>
+      <ion-icon color="light" name="arrow-back"></ion-icon>
+    </button>
+    <ion-title>Pavillon A</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <br>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Chambres restant par étage
+      </ion-card-title>
+    </ion-card-content>
+    <ion-item (click)="pavionStat()">
+      <ion-avatar item-start>
+        <p class="lettre">A</p>
+      </ion-avatar>
+      <h2>Pavillon A</h2>
+      <ion-badge item-end>260</ion-badge>
+    </ion-item>
+    <ion-item>
+      <p class="lettre">1</p>
+      Albums
+      <ion-badge item-end>9</ion-badge>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+      Followers
+      <ion-badge item-end>260k</ion-badge>
+    </ion-item>
+
+  </ion-card>
+  <div id="container" style="display: block;"	></div>
+  <div id="pardepart" style="display: block;"	></div>
+</ion-content>
