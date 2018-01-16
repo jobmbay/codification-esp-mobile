@@ -1,0 +1,35 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content padding>
+
+  <br><br><br>
+  <p class="logoContent">
+    <img src="assets/imgs/esp-dakar.jpg" class="logo" alt="">
+  </p>
+
+  <ion-list>
+
+    <button class="inputLogin" ion-button color="blanc" round>
+      <ion-label color="dark">Username</ion-label>
+      <ion-input [(ngModel)]="user.username" placeholder="Nom d'utilisateur" type="email" ></ion-input>
+    </button>
+
+    <button class="inputLogin" ion-button color="blanc" round>
+      <ion-label color="dark">Password</ion-label>
+      <ion-input [(ngModel)]="user.password" type="password" placeholder="mot de passe"></ion-input>
+    </button>
+  </ion-list>
+
+  <div padding>
+    <button (click)="login()" class="inputLogin" ion-button color="primary" round>Se connecter</button>
+  </div>
+
+  <a style="text-align: center" (click)="inscriptinPgae()" href="#">Je suis nouveau</a>
+
+
+</ion-content>
