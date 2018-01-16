@@ -14,3 +14,35 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.logo
+{
+  border-radius: 100%;
+  width: 80px;
+}
+.logoContent
+{
+  text-align: center;
+}
+.menuItem
+{
+  text-align: center;
+  color: white;
+  background: #488aff;
+  font-weight: bold;
+}
+.bg
+{
+  background: #488aff;
+}
+.userInfo
+{
+  color: white;
+  text-align: center;
+  margin-top: -15px;
+  background: #488aff;
+}
+ion-searchbar
+{
+  $searchbar-ios-background-color: #488aff;
+}

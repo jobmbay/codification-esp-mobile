@@ -1,18 +1,33 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
+
   </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+  <ion-content class="bg">
+    <br>
+    <br>
+    <ion-searchbar class="search"></ion-searchbar>
+    <p class="logoContent">
+      <img src="assets/imgs/jobmbay.jpg" class="logo" alt="">
+    </p>
+    <ion-label class="userInfo">
+      <h6 style="font-weight: bold">Mbaye DIOP</h6>
+      <p style="color: white;">DIC2 Informatique</p>
+    </ion-label>
+    <br>
+      <ion-list>
+      <button class="menuItem" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon name={{p.icon}}></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
   </ion-content>
-
+  <ion-footer>
+    <button class="menuItem" menuClose ion-item (click)="deconnexion()">
+      <ion-icon name=log-out></ion-icon>
+      Deconnexion
+    </button>
+  </ion-footer>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

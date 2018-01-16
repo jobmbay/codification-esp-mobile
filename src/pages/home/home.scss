@@ -1,3 +1,79 @@
 page-home {
+  .menuButton
+  {
+    background: #a5a5a5;
+    position: fixed;
+    top:15px;
+    left: 10px;
+  }
+
+  .lettre
+  {
+    background: grey;
+    font-size: 35px;
+    padding-left: 8px;
+    font-weight: bold;
+    color:white;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+
+  .codifButtonG
+  {
+    position: absolute;
+    top:29vh;
+    left: 20px;
+  }
+
+  .codifButtonD
+  {
+    position: absolute;
+    top:29vh;
+    background: #F8CE00;
+    right: 20px;
+  }
+
+  .logo
+  {
+    border-radius: 100%;
+    width: 100px;
+  }
+
+  .positionUserPicture
+  {
+    position: absolute;
+    top:23vh;
+    left: 35vw;
+  }
+  .backgroundImage
+  {
+    height: 33vh;
+    width: 100%;
+    background-image: url('../assets/imgs/campusESP.jpg');
+    background-size: cover;
+  }
+
+  .userInfoHome
+  {
+    color: black;
+    text-align: center;
+    background: white;
+  }
+
+  .statCodif
+  {
+    color: #5278F6;
+  }
+
+  .statGeneContent
+  {
+    text-align: center;
+  }
+  .pavionStat
+  {
+
+  }
+
 
 }
