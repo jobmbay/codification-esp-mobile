@@ -6,6 +6,7 @@ import DataSeriesMapping = Highcharts.DataSeriesMapping;
 import {DataProvider} from "../../providers/data/data";
 import {User} from "../shared/models/user";
 import {ReservationPage} from "../reservation/reservation";
+import {NativeStorage} from "@ionic-native/native-storage";
 
 @Component({
   selector: 'page-home',
@@ -25,17 +26,50 @@ export class HomePage implements OnInit{
     username: "",
   };
 
-  constructor(private dataService: DataProvider, public modalCtrl: ModalController, public navCtrl: NavController) {
+  constructor(private nativeStorage: NativeStorage, private dataService: DataProvider, public modalCtrl: ModalController, public navCtrl: NavController) {
   }
 
   ngOnInit()
   {
-    if(this.dataService.isConnected()==false)
-    {
-      let profileModal = this.modalCtrl.create(LoginPage);
-      profileModal.present();
-    }
-    this.user = this.dataService.getUser();
+    this.isconnected();
+  }
+
+  isconnected()
+  {
+    this.nativeStorage.getItem('user')
+      .then(
+        data => {
+          this.getUser();
+        },
+        error => {
+          this.loginPageShow()
+        }
+      );
+
+  }
+
+  loginPageShow()
+  {
+    let login = this.modalCtrl.create(LoginPage);
+
+    login.onDidDismiss(data => {
+      this.getUser();
+    });
+
+    login.present();
+
+  }
+
+  getUser()
+  {
+    this.nativeStorage.getItem('user')
+      .then(
+        data => {
+          this.user = data;
+          //this.dataProvider.get("Compteurs/count?where=" + encodeURIComponent('{"montant":{"gte":' + this.compteur.montant + '}, "vehiculeId":"' + this.voiture.id + '"}'))
+        },
+        error => console.error(error)
+      );
   }
 
   pavionStat()

@@ -50,7 +50,7 @@ export class MyApp {
 
   deconnexion()
   {
-    this.dataProvider.deconnect();
+    this.dataProvider.desconnected();
     let profileModal = this.modalCtrl.create(LoginPage);
     profileModal.present();
   }

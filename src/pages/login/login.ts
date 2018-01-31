@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController, AlertController, ModalController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 import {RegisterPage} from "../register/register";
+import {NativeStorage} from "@ionic-native/native-storage";
 
 /**
  * Generated class for the LoginPage page.
@@ -22,7 +23,7 @@ export class LoginPage {
     password: ""
   }
 
-  constructor(private modalCtrl: ModalController, public alertCtrl: AlertController, private dataprovider : DataProvider,public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(private nativeStorage: NativeStorage, private modalCtrl: ModalController, public alertCtrl: AlertController, private dataprovider : DataProvider,public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
@@ -33,8 +34,9 @@ export class LoginPage {
   {
     this.dataprovider.login(this.user).then(
       data=>{
-        this.dataprovider.setUser(data.user);
-        this.dataprovider.setTocken(data.id);
+        this.setUser(data);
+        //document.getElementById("home").click();
+        //document.getElementById("menu").click();
         this.viewCtrl.dismiss();
       },
       err=> {
@@ -47,6 +49,15 @@ export class LoginPage {
         alert.present();
       }
     );
+  }
+
+  setUser(user)
+  {
+    this.nativeStorage.setItem('user', user)
+      .then(
+        () => console.log('Stored item!'),
+        error => console.error('Error storing item', error)
+      );
   }
 
   inscriptinPgae()

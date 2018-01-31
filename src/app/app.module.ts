@@ -16,6 +16,9 @@ import {HttpClientModule} from "@angular/common/http";
 import {PavillonPage} from "../pages/pavillon/pavillon";
 import {RegisterPage} from "../pages/register/register";
 import {ReservationPage} from "../pages/reservation/reservation";
+import {NativeStorage} from "@ionic-native/native-storage";
+
+declare var require:any;
 
 
 @NgModule({
@@ -32,8 +35,7 @@ import {ReservationPage} from "../pages/reservation/reservation";
     BrowserModule,
     HttpClientModule,
     ChartModule.forRoot(require('highcharts-3d')),
-
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,6 +50,7 @@ import {ReservationPage} from "../pages/reservation/reservation";
   providers: [
     StatusBar,
     SplashScreen,
+    NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DataProvider
   ]

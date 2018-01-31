@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {NativeStorage} from "@ionic-native/native-storage";
 
 /*
   Generated class for the DataProvider provider.
@@ -10,13 +11,15 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DataProvider {
 
-  constructor(public http: HttpClient) {
+  baseUrl = "https://codification-esp-api.herokuapp.com/api/";
+
+  constructor(private nativeStorage: NativeStorage, public http: HttpClient) {
     console.log('Hello DataProvider Provider');
   }
 
-  login(data) {
+  get(url) {
     return new Promise((resolve, reject) => {
-      this.http.post("https://codification-esp-api.herokuapp.com/api/Etudiants/login?include=user", data)
+      this.http.get(this.baseUrl + url)
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -25,43 +28,37 @@ export class DataProvider {
     });
   }
 
-  setUser(user)
-  {
-    let userStringify = JSON.stringify(user);
-    localStorage.setItem("userAccount",userStringify);
+  login(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.baseUrl + "Etudiants/login", data)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
   }
 
-  getUser()
-  {
-    return JSON.parse(localStorage.getItem("userAccount"));
+  post(url,data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.baseUrl + url, data)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
   }
 
-
-  setTocken(token)
+  desconnected()
   {
-    localStorage.setItem("tocken",token);
-  }
-
-  getTocken()
-  {
-    return localStorage.getItem("tocken");
-  }
-
-  isConnected()
-  {
-    if(localStorage.getItem("tocken"))
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  deconnect()
-  {
-    localStorage.removeItem("tocken");
+    this.nativeStorage.remove('user')
+      .then(
+        data => {
+          //this.modalCtrl.create(LoginPage).present();
+        },
+        error => console.error(error)
+      );
   }
 
 }
