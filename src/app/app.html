@@ -1,18 +1,15 @@
 <ion-menu [content]="content">
-  <ion-header>
-
-  </ion-header>
-
-  <ion-content class="bg">
+  <ion-content style="background: url('../assets/imgs/espBackground.jpeg'); background-size: cover;">
     <br>
     <br>
-    <ion-searchbar class="search"></ion-searchbar>
+    <!--<ion-searchbar class="search"></ion-searchbar>-->
+    <br><br><br><br>
     <p class="logoContent">
       <img src="assets/imgs/jobmbay.jpg" class="logo" alt="">
     </p>
     <ion-label class="userInfo">
-      <h6 style="font-weight: bold">Mbaye DIOP</h6>
-      <p style="color: white;">DIC2 Informatique</p>
+      <h6 style="font-weight: bold">{{user.prenom}} {{user.nom}}</h6>
+      <p style="color: white;">{{user.cycle.label}}{{user.niveau.numero}} {{user.option.label}}</p>
     </ion-label>
     <br>
       <ion-list>
@@ -28,6 +25,7 @@
       Deconnexion
     </button>
   </ion-footer>
+  <a id="menu"></a>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

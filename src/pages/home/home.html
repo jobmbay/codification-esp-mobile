@@ -11,56 +11,39 @@
   </p>
 
   <button class="codifButtonG" (click)="reservationPage();" ion-fab color="primary"><ion-icon name="flag"></ion-icon></button>
-  <button class="codifButtonD" float-end="20px" ion-fab><ion-icon name="person"></ion-icon></button>
+  <button class="codifButtonD" (click)="statistiquePage();" float-end="20px" ion-fab><ion-icon name="pulse"></ion-icon></button>
   <br><br>
   <ion-label class="userInfoHome">
     <h6 style="font-weight: bold">{{user.prenom}} {{user.nom}}</h6>
-    <p style="color: grey;">DIC2 Informatique</p>
+    <p style="color: grey;">{{user.cycle.label}}{{user.niveau.numero}} {{user.option.label}}</p>
   </ion-label>
   <ion-grid>
+    <p style="color: grey; text-align: center; font-size: 20px;">Codifier/reserver/pas encore</p>
     <p class="statGeneContent">
       <ion-row>
         <ion-col col-4>
-          <h2 style="color: grey"><ion-icon class="statCodif" name="checkmark"></ion-icon> 200</h2>
+          <h2 style="color: grey"><ion-icon class="statCodif" name="checkmark"></ion-icon> {{nbCodification}}</h2>
         </ion-col>
         <ion-col col-4>
-          <h2 style="color: grey"><ion-icon class="statCodif" name="flag"></ion-icon> 200</h2>
+          <h2 style="color: grey"><ion-icon class="statCodif" name="flag"></ion-icon> {{nbReservation}}</h2>
         </ion-col>
         <ion-col col-4>
-          <h2 style="color: grey"><ion-icon class="statCodif" name="help"></ion-icon> 200</h2>
+          <h2 style="color: grey"><ion-icon class="statCodif" name="help"></ion-icon> {{nbEtudiant - (nbCodification + nbReservation)}}</h2>
         </ion-col>
       </ion-row>
     </p>
   </ion-grid>
+  <p style="color: grey; text-align: center; font-size: 20px;">Chambres restant par étage</p>
   <ion-list class="pavionStat">
-    <ion-item (click)="pavionStat()">
+    <ion-item *ngFor="let batiment of batiments" (click)="pavionStat(batiment)">
       <ion-avatar item-start>
         <p class="lettre">A</p>
       </ion-avatar>
-      <h2>Pavillon A</h2>
-      <ion-badge item-end>260</ion-badge>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-start>
-        <p class="lettre">B</p>
-      </ion-avatar>
-      <h2>Pavillon B</h2>
-      <ion-badge item-end>26</ion-badge>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-start>
-        <p class="lettre">C</p>
-      </ion-avatar>
-      <h2>Pavillon C</h2>
-      <ion-badge item-end>2</ion-badge>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-start>
-        <p class="lettre">F</p>
-      </ion-avatar>
-      <h2>Pavillon F</h2>
-      <ion-badge item-end>17</ion-badge>
+      <h2>{{batiment.label}}</h2>
+      <ion-badge item-end>{{batiment.nbtotalposition - batiment.nbposition}}</ion-badge>
     </ion-item>
   </ion-list>
+
+  <a (click)="initialize()" id="initializeAll"></a>
 
 </ion-content>

@@ -17,9 +17,20 @@ import {PavillonPage} from "../pages/pavillon/pavillon";
 import {RegisterPage} from "../pages/register/register";
 import {ReservationPage} from "../pages/reservation/reservation";
 import {NativeStorage} from "@ionic-native/native-storage";
+import {ChartsPage} from "../pages/charts/charts";
+import {RatingModule} from "ngx-rating";
+import {ConfirmReservationPage} from "../pages/confirm-reservation/confirm-reservation";
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 
-declare var require:any;
-
+declare let require:any;
+export function highchartsFactory() {
+  const hc = require('highcharts/highstock');
+  const dd = require('highcharts/modules/exporting');
+  const de = require('highcharts/highcharts-3d.js');
+  dd(hc);
+  de(hc);
+  return hc;
+}
 
 @NgModule({
   declarations: [
@@ -29,13 +40,17 @@ declare var require:any;
     LoginPage,
     PavillonPage,
     RegisterPage,
-    ReservationPage
+    ReservationPage,
+    ChartsPage,
+    ConfirmReservationPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ChartModule.forRoot(require('highcharts-3d')),
+    RatingModule,
+    ChartModule,
     IonicModule.forRoot(MyApp)
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,13 +60,20 @@ declare var require:any;
     LoginPage,
     PavillonPage,
     RegisterPage,
-    ReservationPage
+    ReservationPage,
+    ChartsPage,
+    ConfirmReservationPage
+
   ],
   providers: [
     StatusBar,
     SplashScreen,
     NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {
+      provide: HighchartsStatic,
+      useFactory: highchartsFactory
+    },
     DataProvider
   ]
 })

@@ -34,9 +34,7 @@ export class LoginPage {
   {
     this.dataprovider.login(this.user).then(
       data=>{
-        this.setUser(data);
-        //document.getElementById("home").click();
-        //document.getElementById("menu").click();
+        this.setUser(data.user);
         this.viewCtrl.dismiss();
       },
       err=> {
@@ -55,7 +53,11 @@ export class LoginPage {
   {
     this.nativeStorage.setItem('user', user)
       .then(
-        () => console.log('Stored item!'),
+        () => {
+          console.log('Stored item!');
+          document.getElementById("initializeAll").click();
+          document.getElementById("menu").click();
+        },
         error => console.error('Error storing item', error)
       );
   }

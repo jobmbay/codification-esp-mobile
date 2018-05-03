@@ -10,7 +10,7 @@
     <button (click)="dismiss();" ion-button>
       <ion-icon color="light" name="arrow-back"></ion-icon>
     </button>
-    <ion-title>Pavillon A</ion-title>
+    <ion-title>{{batiment.label}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,25 +24,18 @@
         Chambres restant par étage
       </ion-card-title>
     </ion-card-content>
-    <ion-item (click)="pavionStat()">
+    <ion-item *ngFor="let etage of batiment.etages">
       <ion-avatar item-start>
-        <p class="lettre">A</p>
+        <p class="lettre">{{etage.numero}}</p>
       </ion-avatar>
-      <h2>Pavillon A</h2>
-      <ion-badge item-end>260</ion-badge>
+      <h2>Etage</h2>
+      <ion-badge item-end>{{etage.nbtotalposition - etage.nbposition}}</ion-badge>
     </ion-item>
     <ion-item>
-      <p class="lettre">1</p>
-      Albums
-      <ion-badge item-end>9</ion-badge>
+      <ion-icon name='trending-up' item-start style="color: #55acee"></ion-icon>
+      Total
+      <ion-badge item-end>{{batiment.nbtotalposition - batiment.nbposition}}</ion-badge>
     </ion-item>
-
-    <ion-item>
-      <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
-      Followers
-      <ion-badge item-end>260k</ion-badge>
-    </ion-item>
-
   </ion-card>
   <div id="container" style="display: block;"	></div>
   <div id="pardepart" style="display: block;"	></div>

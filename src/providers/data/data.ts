@@ -30,7 +30,7 @@ export class DataProvider {
 
   login(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + "Etudiants/login", data)
+      this.http.post(this.baseUrl + "Etudiants/login?include=user", data)
         .subscribe(res => {
           resolve(res);
         }, (err) => {

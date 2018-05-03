@@ -1,0 +1,86 @@
+<!--
+  Generated template for the ConfirmReservationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button (click)="dismiss();" ion-button>
+      <ion-icon color="light" name="arrow-back"></ion-icon>
+    </button>
+    <ion-title>confirmReservation</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div padding>
+    <button (click)="reserver();" class="inputLogin" ion-button color="primary" round>Reserver la chambre</button>
+  </div>
+
+  <div padding>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button *ngFor="let position of chambre.positions" value={{position.id}}>
+        Pos {{position.numero}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="pet">
+    <div  *ngFor="let position of chambre.positions">
+      <ion-list *ngSwitchCase="position.id">
+        <ion-card>
+          <img src="assets/imgs/jobmbay.jpg"/>
+          <ion-card-content>
+            <ion-card-header color="easyWork">
+              <h1>{{position.etudiant.prenom}} {{position.etudiant.nom}}</h1>
+            </ion-card-header>
+
+            <ion-item>
+              Age
+              <ion-badge class="ionBadge" item-end>{{position.etudiant.age}}</ion-badge>
+            </ion-item>
+
+            <ion-item>
+              Adresse
+              <ion-badge class="ionBadge" item-end>{{position.etudiant.adresse}}</ion-badge>
+            </ion-item>
+
+            <ion-item>
+              Téléphone
+              <ion-badge class="ionBadge" item-end>{{position.etudiant.telephone}}</ion-badge>
+            </ion-item>
+            <ion-card-header color="easyWork">
+              <h1>Etablissement</h1>
+            </ion-card-header>
+
+            <ion-item>
+              Département
+              <ion-badge class="ionBadge" item-end>{{position.etudiant.option.departement.label}}</ion-badge>
+            </ion-item>
+
+            <ion-item>
+              Option
+              <ion-badge class="ionBadge" item-end>{{position.etudiant.option.label}}</ion-badge>
+            </ion-item>
+
+            <ion-item>
+              Cycle
+              <ion-badge class="ionBadge" item-end>{{position.etudiant.cycle.label}}</ion-badge>
+            </ion-item>
+
+            <ion-item>
+              Niveau
+              <ion-badge class="ionBadge" item-end>{{position.etudiant.niveau.numero}}</ion-badge>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+    </div>
+  </div>
+  <a id="confirmReservation" (click)="reloadChambre()"></a>
+</ion-content>

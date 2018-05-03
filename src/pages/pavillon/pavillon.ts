@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 
 import * as HighCharts from 'highcharts';
+import {DataProvider} from "../../providers/data/data";
 
 
 //require('highcharts-3d');
@@ -20,11 +21,92 @@ import * as HighCharts from 'highcharts';
 })
 export class PavillonPage {
 
-  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+  batimentId:any;
+  batiment={
+    id:"",
+    label:"",
+    nbetudiant : 0,
+    nbcodification : 0,
+    nbchambre : 0,
+    nbposition : 0,
+    nbtotalposition : 0,
+    nbreservation : 0,
+    charts:[
+      {
+        name:"Etage 1",
+        y:22
+      },
+      {
+        name:"Etage 2",
+        y:12
+      }
+    ],
+    etages:[{
+      id:"",
+      label:""
+    }]
+  };
+
+  myChart;
+
+  constructor(private dataService: DataProvider, private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+    this.initialize();
   }
 
   ionViewDidLoad() {
-    let myChart = HighCharts.chart('container', {
+
+  }
+
+  initialize()
+  {
+    this.batimentId = this.navParams.get('batimentId');
+    console.log("AAAAAAAAAAAAAA",this.batimentId)
+    this.dataService.get('Batiments/' + this.batimentId + '?filter=' + encodeURIComponent('{"include": {"etages": {"chambres":"positions"}}}'))
+      .then(
+        data=>{
+          this.batiment = data;
+          this.batiment.nbetudiant = 0;
+          this.batiment.nbcodification = 0;
+          this.batiment.nbchambre = 0;
+          this.batiment.nbposition = 0;
+          this.batiment.nbtotalposition = 0;
+          this.batiment.nbreservation = 0;
+          this.batiment.charts = [];
+          let batiment = this.batiment;
+          this.batiment.etages.forEach(function (etage) {
+              etage.nbtotalposition = 0;
+              etage.nbposition = 0;
+              etage.chambres.forEach(function (chambre) {
+                batiment.nbchambre ++;
+                etage.nbtotalposition+= chambre.nbposition;
+                batiment.nbtotalposition += chambre.nbposition;
+                chambre.positions.forEach(function (position) {
+                  batiment.nbposition ++;
+                  etage.nbposition ++;
+                  if(position.status=="reservation")
+                  {
+                    batiment.nbreservation ++;
+                  }
+                  else
+                  {
+                    batiment.nbcodification ++;
+                  }
+                });
+              });
+              batiment.charts.push({name:"Etage "+etage.numero, y:etage.nbtotalposition - etage.nbposition});
+            });
+          console.log(this.batiment.charts);
+          this.getCharts();
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+  }
+
+  getCharts()
+  {
+    this.myChart = HighCharts.chart('container', {
       chart: {
         type: 'pie',
         options3d: {
@@ -34,7 +116,7 @@ export class PavillonPage {
         }
       },
       title: {
-        text: 'Chambre codifiées par étage'
+        text: 'Chambre restant par étage'
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -53,19 +135,7 @@ export class PavillonPage {
       series: [{
         type: 'pie',
         name: 'Browser share',
-        data: [
-          ['Firefox', 45.0],
-          ['IE', 26.8],
-          {
-            name: 'Chrome',
-            y: 12.8,
-            sliced: true,
-            selected: true
-          },
-          ['Safari', 8.5],
-          ['Opera', 6.2],
-          ['Others', 0.7]
-        ]
+        data: this.batiment.charts
       }]
     });
 
@@ -79,7 +149,7 @@ export class PavillonPage {
         }
       },
       title: {
-        text: 'Codification par département'
+        text: 'Chambre restant par étage'
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -98,22 +168,9 @@ export class PavillonPage {
       series: [{
         type: 'column',
         name: 'Browser share',
-        data: [
-          ['Firefox', 45.0],
-          ['IE', 26.8],
-          {
-            name: 'Chrome',
-            y: 12.8,
-            sliced: true,
-            selected: true
-          },
-          ['Safari', 8.5],
-          ['Opera', 6.2],
-          ['Others', 0.7]
-        ]
+        data: this.batiment.charts
       }]
     });
-
   }
 
   dismiss(){

@@ -26,21 +26,23 @@
 }
 .menuItem
 {
-  text-align: center;
+  //text-align: center;
   color: white;
-  background: #488aff;
+  background: transparent;
+  //background: #488aff;
   font-weight: bold;
 }
 .bg
 {
-  background: #488aff;
+  background: url("../assets/imgs/esp.jpg");
 }
 .userInfo
 {
   color: white;
+  background: transparent;
   text-align: center;
   margin-top: -15px;
-  background: #488aff;
+  //background: #488aff;
 }
 ion-searchbar
 {
